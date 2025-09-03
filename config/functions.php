@@ -36,7 +36,7 @@ function insertNonPMA() {
         $pendidik_wna_sertifikat = htmlspecialchars($_POST['pendidik_wna_sertifikat']);
         
         $jumlah_tendik = intval($_POST['jumlah_tendik']);
-        $pendidikan_tendik = htmlspecialchars($_POST['pendidikan_terakhir_pendidik']);
+        $pendidikan_tendik = htmlspecialchars($_POST['pendidikan_tendik']);
 
         // Penghasilan pendidik
         $gaji_pendidik_wni_min = floatval($_POST['gaji_pendidik_wni_min']);
@@ -66,7 +66,7 @@ function insertNonPMA() {
         $dokumen_rencana_tahunan = htmlspecialchars($_POST['dokumen_rencana_tahunan']);
 
         // Data sarana prasarana
-        $luas_tanah = floatval($_POST['luas_tanah']);
+        $luas_tanah = htmlspecialchars($_POST['luas_tanah']);
         $status_tanah = htmlspecialchars($_POST['status_tanah']);
         $peruntukan_tanah = htmlspecialchars($_POST['peruntukan_tanah']);
         $jumlah_ruang_belajar = intval($_POST['jumlah_ruang_belajar']);
@@ -130,7 +130,7 @@ function insertNonPMA() {
         // ==================================================================
         $stmt->bind_param(
             // String tipe data yang sudah dikoreksi (Total 70 karakter)
-            "isssssssssssiissiissiissisddddssssssssssssssssssdssissssissssssssssiis",
+            "isssssssssssiisssiissisddddssssssssssssssssssssissssissssssssssssssiis",
             // Lembaga & Pimpinan (12 vars)
             $id_table_lembaga, $no_akte, $jenis_kegiatan, $kota_administrasi,
             $nama_pimpinan, $pimpinan_ijazah, $pimpinan_asal_pt, $pimpinan_jurusan,
@@ -163,7 +163,19 @@ function insertNonPMA() {
             die("FATAL ERROR: Gagal mengeksekusi statement. Cek tipe data atau constraint (foreign key). Pesan error dari database: " . $stmt->error);
         }
 
-        echo "<script>alert('Data berhasil dikirim!'); window.location.href='index.php';</script>";
+        echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'Berhasil!',
+    text: 'Data berhasil dikirim!',
+    confirmButtonText: 'OK'
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = 'index.php';
+    }
+});
+</script>";
 
         $stmt->close();
         $conn->close();
